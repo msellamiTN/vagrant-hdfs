@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
 
   # create some web servers
   # https://docs.vagrantup.com/v2/vagrantfile/tips.html
-  (1..1).each do |i|
+  (1..2).each do |i|
     config.vm.define "hadoop-slave-#{i}" do |node|
         node.vm.box = "ubuntu/trusty64"
         node.vm.hostname = "hadoop-slave-#{i}"
@@ -34,7 +34,6 @@ Vagrant.configure("2") do |config|
           vb.memory = "256"
           # vb.gui = true
         end
-        node.vm.provision :shell, path: "bootstrap-slave.sh"
     end
   end
 

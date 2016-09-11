@@ -2,8 +2,3 @@
   authorized_key: user=vagrant
                   key="{{ lookup('file', '/home/vagrant/.ssh/id_rsa.pub') }}"
                   state=present
-
-- name: install ssh key hadoop
-  authorized_key: user=hadoop
-                  key="{{ lookup('file', '/home/vagrant/.ssh/id_rsa.pub') }}"
-                  state=present

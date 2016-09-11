@@ -13,3 +13,10 @@
 
     roles:
       - addkey
+
+  - hosts: all
+    become: yes
+    gather_facts: no
+
+    roles:
+      - user_hadoop
