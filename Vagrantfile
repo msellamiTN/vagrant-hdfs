@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
       master_config.vm.hostname = "hadoop-master"
       master_config.vm.network :private_network, ip: "10.0.4.10"
       master_config.vm.provider "virtualbox" do |vb|
-        vb.memory = "256"
+        vb.memory = "674"
         # vb.gui = true
       end
       master_config.vm.provision :shell, path: "bootstrap-master.sh"
