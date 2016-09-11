@@ -2,12 +2,7 @@
 
 # sudo apt-get install -y default-jre
 
-apt-get -y install software-properties-common
-apt-add-repository -y ppa:ansible/ansible
-apt-get update
-apt-get -y install ansible
-
-useradd -m -p $(openssl passwd -1 hadoop) hadoop
+useradd -m -p $(openssl passwd -1 hadoop) hadoop -s /bin/bash
 
 cat > /etc/sudoers.d/hadoop << EOF
 hadoop ALL=(ALL) NOPASSWD:ALL
