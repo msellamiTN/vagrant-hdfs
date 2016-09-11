@@ -1,0 +1,15 @@
+---
+  - hosts: master
+    become: no
+    gather_facts: no
+
+    roles:
+      - keyscan
+
+  - hosts: slave
+    become: yes
+    gather_facts: no
+    remote_user: vagrant
+
+    roles:
+      - addkey

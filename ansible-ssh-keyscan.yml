@@ -1,0 +1,11 @@
+---
+
+- hosts: master
+  become: no
+  gather_facts: no
+  remote_user: vagrant
+
+  tasks:
+
+    - name: add to know_hosts all slaves
+      shell: /vagrant/ssh-keyscan-all-hosts.sh creates=/home/vagrant/.keyscan-done

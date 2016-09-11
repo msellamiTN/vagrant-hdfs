@@ -4,3 +4,4 @@ for f in $(sed -n '/vagrant-hostmanager-start/ {
        }' /etc/hosts | grep -v $(hostname) | awk '{print $2}') ; do
          ssh-keyscan $f >> $HOME/.ssh/known_hosts
 done
+touch $HOME/.keyscan-done
