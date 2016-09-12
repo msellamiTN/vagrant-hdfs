@@ -12,8 +12,8 @@
     regexp: '^%sudo'
     line: '%sudo ALL=(ALL) NOPASSWD: ALL'
 
-- name: install java
-  apt: name=default-jre update_cache=no
+# - name: install java
+#   apt: name=default-jre update_cache=no
 
 - name: Add env var for JAVA
   lineinfile:
@@ -24,3 +24,18 @@
   with_items:
     - { regexp: '^export JAVA_HOME.*', line: 'export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64' }
     - { regexp: '^export PATH.*JAVA_HOME', line: 'export PATH=$PATH:$JAVA_HOME/bin' }
+
+- name: fetch all public ssh keys
+  shell: cat /home/hadoop/.ssh/id_rsa.pub
+  register: ssh_keys
+  changed_when: False
+
+# - name: check keys
+#   debug: msg="{{ ssh_keys.stdout }}"
+
+- name: deploy keys on all servers
+  authorized_key: user=hadoop key="{{ item[0] }}"
+  delegate_to: "{{ item[1] }}"
+  with_nested:
+    - ssh_keys.stdout
+    - "{{groups['all']}}"
