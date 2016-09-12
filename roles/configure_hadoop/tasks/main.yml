@@ -1,0 +1,20 @@
+---
+- name: Write core-site.xml
+  template: src=core-site.xml.j2 dest=/opt/hadoop/etc/hadoop/core-site.xml
+
+- name: Write hdfs-site.xml
+  template: src=hdfs-site.xml.j2 dest=/opt/hadoop/etc/hadoop/hdfs-site.xml
+
+- name: Write mapred-site.xml
+  template: src=mapred-site.xml.j2 dest=/opt/hadoop/etc/hadoop/mapred-site.xml
+
+- name: Write masters
+  template: src=masters.j2 dest=/opt/hadoop/etc/hadoop/masters
+
+- name: get slaves
+  command: sed '1,/slave/d' /vagrant/inventory.ini
+  register: slaves
+  changed_when: False
+
+- name: Write file slaves
+  copy: content={{ slaves.stdout }} dest=/opt/hadoop/etc/hadoop/slaves

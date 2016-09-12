@@ -36,7 +36,7 @@
     become: yes
     gather_facts: no
 
-    tasks:
+    pre_tasks:
       # - name: Create directory
       #   file: path=/opt/hadoop state=directory mode=0755 owner=hadoop group=hadoop
       - name: Install Hadoop
@@ -45,3 +45,6 @@
         # see https://github.com/ansible/ansible-modules-core/pull/4131
       - name: Rename /opt/hadoop-2.7.3 to /opt/hadoop
         command: mv /opt/hadoop-2.7.3 /opt/hadoop creates=/opt/hadoop
+
+    roles:
+      - { role: configure_hadoop, become_user: hadoop }
