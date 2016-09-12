@@ -21,3 +21,27 @@
     roles:
       - user_hadoop
       - { role: keyscan, become_user: hadoop }
+
+  - hosts: master
+    gather_facts: no
+
+    tasks:
+      - name: Download Hadoop Archive
+        get_url:
+          url: http://apache.mesi.com.ar/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
+          checksum: sha1:B84B898934269C68753E4E036D21395E5A4AB5B1
+          dest: /vagrant/hadoop-2.7.3.tar.gz
+
+  - hosts: all
+    become: yes
+    gather_facts: no
+
+    tasks:
+      # - name: Create directory
+      #   file: path=/opt/hadoop state=directory mode=0755 owner=hadoop group=hadoop
+      - name: Install Hadoop
+        unarchive: src=/vagrant/hadoop-2.7.3.tar.gz dest=/opt owner=hadoop group=hadoop remote_src=yes creates=/opt/hadoop
+
+        # see https://github.com/ansible/ansible-modules-core/pull/4131
+      - name: Rename /opt/hadoop-2.7.3 to /opt/hadoop
+        command: mv /opt/hadoop-2.7.3 /opt/hadoop creates=/opt/hadoop
