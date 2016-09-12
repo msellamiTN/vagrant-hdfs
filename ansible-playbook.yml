@@ -20,3 +20,4 @@
 
     roles:
       - user_hadoop
+      - { role: keyscan, become_user: hadoop }
