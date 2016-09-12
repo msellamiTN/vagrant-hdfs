@@ -12,8 +12,8 @@
     regexp: '^%sudo'
     line: '%sudo ALL=(ALL) NOPASSWD: ALL'
 
-# - name: install java
-#   apt: name=default-jre update_cache=no
+- name: install java
+  apt: name=default-jre update_cache=no
 
 - name: Add env var for JAVA
   lineinfile:

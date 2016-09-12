@@ -18,3 +18,9 @@
 
 - name: Write file slaves
   copy: content={{ slaves.stdout }} dest=/opt/hadoop/etc/hadoop/slaves
+
+# For some reason it gives JAVA_HOME not set, even if is in bashrc
+- name: add Java home
+  lineinfile: dest=/opt/hadoop/etc/hadoop/hadoop-env.sh
+              line="export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64"
+              regexp="^export JAVA_HOME"

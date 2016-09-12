@@ -16,8 +16,12 @@
 
   - hosts: all
     become: yes
-    gather_facts: no
+    gather_facts: yes
 
+    tasks:
+      - name: Sanitize /etc/hosts
+        lineinfile: dest=/etc/hosts state=absent
+                    regexp="^127.0.0.1.*{{ ansible_nodename }}"
     roles:
       - user_hadoop
       - { role: keyscan, become_user: hadoop }

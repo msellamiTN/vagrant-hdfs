@@ -14,6 +14,9 @@ Vagrant.configure("2") do |config|
       master_config.vm.box = "ubuntu/trusty64"
       master_config.vm.hostname = "hadoop-master"
       master_config.vm.network :private_network, ip: "10.0.4.10"
+      master_config.vm.network "forwarded_port", guest: 50070, host: "50070"
+      master_config.vm.network "forwarded_port", guest: 50090, host: "50090"
+      master_config.vm.network "forwarded_port", guest: 8088, host: "8088"
       master_config.vm.provider "virtualbox" do |vb|
         vb.memory = "674"
         # vb.gui = true
@@ -29,7 +32,6 @@ Vagrant.configure("2") do |config|
         node.vm.box = "ubuntu/trusty64"
         node.vm.hostname = "hadoop-slave-#{i}"
         node.vm.network :private_network, ip: "10.0.4.2#{i}"
-        # node.vm.network "forwarded_port", guest: 80, host: "808#{i}"
         node.vm.provider "virtualbox" do |vb|
           vb.memory = "256"
           # vb.gui = true
