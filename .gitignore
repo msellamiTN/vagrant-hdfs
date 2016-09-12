@@ -1,2 +1,4 @@
 .vagrant-ssh-config
 .vagrant
+hadoop-*.tar.gz
+inventory.ini
