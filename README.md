@@ -48,9 +48,9 @@ hadoop-fuse-dfs dfs://hadoop-master:9000 /mnt
 ## Web interfaces
 On Host system:
 ```
-http://localhost:50070
-http://localhost:50090
-http://localhost:8088
+http://hadoop-master:50070
+http://hadoop-master:50090
+http://hadoop-master:8088
 ```
 > Some info at: [Hadoop Default Ports Quick Reference](http://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/)
 
