@@ -22,7 +22,6 @@
 - name: Write file slaves
   copy: content={{ slaves.stdout }} dest=/opt/hadoop/etc/hadoop/slaves
 
-# For some reason it gives JAVA_HOME not set, even if is in bashrc
 - name: add Java home
   lineinfile: dest=/opt/hadoop/etc/hadoop/hadoop-env.sh
               line="export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64"
@@ -31,4 +30,9 @@
 - name: Hadoop heap size
   lineinfile: dest=/opt/hadoop/etc/hadoop/hadoop-env.sh
               line="export HADOOP_HEAPSIZE=512"
-              regexp=".export HADOOP_HEAPSIZE"
+              regexp="^export HADOOP_HEAPSIZE"
+
+- name: Host checking in hadoop-env
+  lineinfile: dest=/opt/hadoop/etc/hadoop/hadoop-env.sh
+              line="export HADOOP_SSH_OPTS=\"-oStrictHostKeyChecking=no\""
+              regexp="^export HADOOP_SSH_OPTS"
