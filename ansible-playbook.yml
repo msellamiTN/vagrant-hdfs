@@ -44,11 +44,12 @@
       # - name: Create directory
       #   file: path=/opt/hadoop state=directory mode=0755 owner=hadoop group=hadoop
       - name: Install Hadoop
-        unarchive: src=/vagrant/hadoop-2.7.3.tar.gz dest=/opt owner=hadoop group=hadoop remote_src=yes creates=/opt/hadoop
+        unarchive: src=/vagrant/hadoop-2.7.3.tar.gz dest=/opt owner=hadoop group=hadoop remote_src=yes creates=/opt/hadoop-2.7.3
 
         # see https://github.com/ansible/ansible-modules-core/pull/4131
-      - name: Rename /opt/hadoop-2.7.3 to /opt/hadoop
-        command: mv /opt/hadoop-2.7.3 /opt/hadoop creates=/opt/hadoop
+      - name: Link /opt/hadoop-2.7.3 to /opt/hadoop
+        file: src=/opt/hadoop-2.7.3 dest=/opt/hadoop owner=hadoop group=hadoop state=link
+        # command: mv /opt/hadoop-2.7.3 /opt/hadoop creates=/opt/hadoop
 
     roles:
       - { role: configure_hadoop, become_user: hadoop }
